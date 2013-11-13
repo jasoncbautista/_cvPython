@@ -2,12 +2,9 @@
 Sources:
 http://opencv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
-
-
 http://fideloper.com/facial-detection 
 http://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures
  '''
-
 # http://www.cognotics.com/opencv/servo_2007_series/part_2/page_2.html 
 
 #Python 2.7.2
@@ -20,7 +17,7 @@ import glob
 import os
 import math
 
-def DetectFace(image, faceCascade, returnImage=False):
+def DetectFace(image, faceCascade):
     # This function takes a grey scale cv image and finds
     # the patterns defined in the haarcascade function
     # modified from: http://www.lucaamore.com/?p=638
@@ -41,18 +38,7 @@ def DetectFace(image, faceCascade, returnImage=False):
             haar_scale, min_neighbors, haar_flags, min_size
         )
 
-    # If faces are found
-    if faces and returnImage:
-        for ((x, y, w, h), n) in faces:
-            # Convert bounding box to two CvPoints
-            pt1 = (int(x), int(y))
-            pt2 = (int(x + w), int(y + h))
-            cv.Rectangle(image, pt1, pt2, cv.RGB(255, 0, 0), 5, 8, 0)
-
-    if returnImage:
-        return image
-    else:
-        return faces
+   return faces
 
 def pil2cvGrey(pil_im):
     # Convert a PIL image to a greyscale cv image
@@ -109,25 +95,6 @@ def faceCrop(imagePattern,boxScale=1):
                 n+=1
         else:
             print 'Nothing found:', img
-
-def test(imageFilePath):
-    pil_im=Image.open(imageFilePath)
-    cv_im=pil2cvGrey(pil_im)
-    # Select one of the haarcascade files:
-    #   haarcascade_frontalface_alt.xml  <-- Best one?
-    #   haarcascade_frontalface_alt2.xml
-    #   haarcascade_frontalface_alt_tree.xml
-    #   haarcascade_frontalface_default.xml
-    #   haarcascade_profileface.xml
-    faceCascade = cv.Load('haarcascade_frontalface_alt.xml')
-    face_im=DetectFace(cv_im,faceCascade, returnImage=True)
-    img=cv2pil(face_im)
-    img.show()
-    img.save('test.png')
-
-
-# Test the algorithm on an image
-#test('images/g05.jpg')
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
