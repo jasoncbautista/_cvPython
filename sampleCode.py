@@ -8,6 +8,8 @@ http://fideloper.com/facial-detection
 http://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures
  '''
 
+# http://www.cognotics.com/opencv/servo_2007_series/part_2/page_2.html 
+
 #Python 2.7.2
 #Opencv 2.4.2
 #PIL 1.1.7
@@ -27,7 +29,7 @@ def DetectFace(image, faceCascade, returnImage=False):
     min_sizeVar = 50
     min_size = (50,50)
     haar_scale = 1.1
-    min_neighbors = 3
+    min_neighbors = 5 
     haar_flags = 0
 
     # Equalize the histogram
