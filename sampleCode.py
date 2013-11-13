@@ -24,7 +24,7 @@ def DetectFace(image, faceCascade, returnImage=False):
     # modified from: http://www.lucaamore.com/?p=638
 
     #variables    
-    min_size = (20,20)
+    min_size = (25,25)
     haar_scale = 1.1
     min_neighbors = 3
     haar_flags = 0
@@ -95,12 +95,14 @@ def faceCrop(imagePattern,boxScale=1):
         pil_im=Image.open(img)
         cv_im=pil2cvGrey(pil_im)
         faces=DetectFace(cv_im,faceCascade)
+	print "."
         if faces:
             n=1
             for face in faces:
                 croppedImage=imgCrop(pil_im, face[0],boxScale=boxScale)
                 fname,ext=os.path.splitext(img)
                 croppedImage.save(fname+'_crop'+str(n)+ext)
+		print "|"
                 n+=1
         else:
             print 'No faces found:', img
@@ -126,7 +128,7 @@ def test(imageFilePath):
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
-print "About to crop.."
-faceCrop('images/*.jpg',boxScale=1.3)
+print "Working."
+faceCrop('images/*.jpg',boxScale=1.8)
 
-print "Done Cropping."
+print "Done."
