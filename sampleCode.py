@@ -16,6 +16,7 @@ import cv #Opencv
 import Image #Image from PIL
 import glob
 import os
+import math
 
 def DetectFace(image, faceCascade, returnImage=False):
     # This function takes a grey scale cv image and finds
@@ -67,7 +68,9 @@ def imgCrop(image, cropBox, boxScale=1):
 
     # Calculate scale factors
     xDelta=max(cropBox[2]*(boxScale-1),0)
+    xDelta=int(math.floor(xDelta))
     yDelta=max(cropBox[3]*(boxScale-1),0)
+    yDelta=int(math.floor(yDelta))
 
     # Convert cv box to PIL box [left, upper, right, lower]
     PIL_box=[cropBox[0]-xDelta, cropBox[1]-yDelta, cropBox[0]+cropBox[2]+xDelta, cropBox[1]+cropBox[3]+yDelta]
@@ -124,6 +127,6 @@ def test(imageFilePath):
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
 print "About to crop.."
-faceCrop('images/*.jpg',boxScale=1)
+faceCrop('images/*.jpg',boxScale=1.3)
 
 print "Done Cropping."
