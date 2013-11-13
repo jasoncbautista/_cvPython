@@ -2,6 +2,8 @@
 Sources:
 http://opencv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
+
+http://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures
 '''
 
 #Python 2.7.2
