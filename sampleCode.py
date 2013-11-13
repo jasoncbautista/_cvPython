@@ -24,7 +24,8 @@ def DetectFace(image, faceCascade, returnImage=False):
     # modified from: http://www.lucaamore.com/?p=638
 
     #variables    
-    min_size = (25,25)
+    min_sizeVar = 50
+    min_size = (50,50)
     haar_scale = 1.1
     min_neighbors = 3
     haar_flags = 0
