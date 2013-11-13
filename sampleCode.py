@@ -37,8 +37,7 @@ def DetectFace(image, faceCascade):
             image, faceCascade, cv.CreateMemStorage(0),
             haar_scale, min_neighbors, haar_flags, min_size
         )
-
-   return faces
+    return faces
 
 def pil2cvGrey(pil_im):
     # Convert a PIL image to a greyscale cv image
