@@ -1,1 +1,10 @@
 Testing out some python cv.
+
+
+Simple python script to find faces and crop new images:
+
+```
+ python sampleCode.py
+````
+
+Takes images from images/ directory
