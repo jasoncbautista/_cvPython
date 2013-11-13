@@ -106,7 +106,7 @@ def faceCrop(imagePattern,boxScale=1):
 		print "|"
                 n+=1
         else:
-            print 'No faces found:', img
+            print 'Nothing found:', img
 
 def test(imageFilePath):
     pil_im=Image.open(imageFilePath)
