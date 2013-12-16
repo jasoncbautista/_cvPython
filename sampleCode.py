@@ -98,6 +98,6 @@ def faceCrop(imagePattern,boxScale=1):
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
 print "Working."
-faceCrop('images/*.jpg',boxScale=1.8)
+faceCrop('images/*.jpg',boxScale=1.2)
 
 print "Done."
