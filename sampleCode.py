@@ -1,11 +1,14 @@
 '''
+
+
+sampleCode.py 1.2 40 0
 Sources:
 http://opencv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
-http://fideloper.com/facial-detection 
+http://fideloper.com/facial-detection
 http://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures
  '''
-# http://www.cognotics.com/opencv/servo_2007_series/part_2/page_2.html 
+# http://www.cognotics.com/opencv/servo_2007_series/part_2/page_2.html
 
 #Python 2.7.2
 #Opencv 2.4.2
@@ -16,17 +19,25 @@ import Image #Image from PIL
 import glob
 import os
 import math
+import sys
 
+
+multiply = float(sys.argv[1])  # 1.2
+yDelta1 = int(sys.argv[2])
+yDelta2 = int(sys.argv[3])
+
+missing = 0
+total = 0
 def DetectFace(image, faceCascade):
     # This function takes a grey scale cv image and finds
     # the patterns defined in the haarcascade function
     # modified from: http://www.lucaamore.com/?p=638
 
-    #variables    
-    min_sizeVar = 50
-    min_size = (50,50)
+    #variables
+    min_sizeVar = 30
+    min_size = (30,30)
     haar_scale = 1.1
-    min_neighbors = 5 
+    min_neighbors = 5
     haar_flags = 0
 
     # Equalize the histogram
@@ -61,11 +72,13 @@ def imgCrop(image, cropBox, boxScale=1):
     yDelta=int(math.floor(yDelta))
 
     # Convert cv box to PIL box [left, upper, right, lower]
-    PIL_box=[cropBox[0]-xDelta, cropBox[1]-yDelta, cropBox[0]+cropBox[2]+xDelta, cropBox[1]+cropBox[3]+yDelta]
+    PIL_box=[cropBox[0]-xDelta, (cropBox[1]-yDelta) + yDelta1, cropBox[0]+cropBox[2]+xDelta, cropBox[1]+cropBox[3]+yDelta + yDelta2]
 
     return image.crop(PIL_box)
 
 def faceCrop(imagePattern,boxScale=1):
+    global total
+    global missing
     # Select one of the haarcascade files:
     #   haarcascade_frontalface_alt.xml  <-- Best one?
     #   haarcascade_frontalface_alt2.xml
@@ -79,11 +92,13 @@ def faceCrop(imagePattern,boxScale=1):
         print 'No Images Found'
         return
 
+
     for img in imgList:
         pil_im=Image.open(img)
         cv_im=pil2cvGrey(pil_im)
         faces=DetectFace(cv_im,faceCascade)
-	print "."
+        print "."
+        total += 1
         if faces:
             n=1
             for face in faces:
@@ -93,11 +108,14 @@ def faceCrop(imagePattern,boxScale=1):
 		print "|"
                 n+=1
         else:
+            missing = missing + 1
             print 'Nothing found:', img
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
 print "Working."
-faceCrop('images/*.jpg',boxScale=1.2)
+faceCrop('images/*.jpg',boxScale=multiply)
 
 print "Done."
+print "Percentage: "
+print missing/total
