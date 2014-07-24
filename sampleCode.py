@@ -1,7 +1,7 @@
 '''
 
 
-sampleCode.py 1.2 40 0
+sampleCode.py 1.2 40 0 haarcascade_frontalface_default.xml
 Sources:
 http://opencv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
@@ -22,6 +22,7 @@ import math
 import sys
 
 
+har = sys.argv[4] # haarcascade_frontalface_default.xml
 multiply = float(sys.argv[1])  # 1.2
 yDelta1 = int(sys.argv[2])
 yDelta2 = int(sys.argv[3])
@@ -79,13 +80,14 @@ def imgCrop(image, cropBox, boxScale=1):
 def faceCrop(imagePattern,boxScale=1):
     global total
     global missing
+    global har
     # Select one of the haarcascade files:
     #   haarcascade_frontalface_alt.xml  <-- Best one?
     #   haarcascade_frontalface_alt2.xml
     #   haarcascade_frontalface_alt_tree.xml
     #   haarcascade_frontalface_default.xml
     #   haarcascade_profileface.xml
-    faceCascade = cv.Load('haarcascade_frontalface_alt.xml')
+    faceCascade = cv.Load(har)
 
     imgList=glob.glob(imagePattern)
     if len(imgList)<=0:
@@ -118,4 +120,4 @@ faceCrop('images/*.jpg',boxScale=multiply)
 
 print "Done."
 print "Percentage: "
-print missing/total
+print float(missing)/float(total)
