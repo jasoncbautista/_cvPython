@@ -2,6 +2,10 @@
 
 
 sampleCode.py 1.2 40 0 haarcascade_frontalface_default.xml
+
+
+https://github.com/Itseez/opencv/tree/master/data/haarcascades
+
 Sources:
 http://opencv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
